@@ -1,5 +1,7 @@
 import express from 'express';
-import PlaylistController from './controllers/PlaylistController';
+import PlaylistArtistController from './controllers/PlaylistArtistController';
+import PlaylistCategoryController from './controllers/PlaylistCategoryController';
+
 
 class App {
   public express: express.Application;
@@ -16,10 +18,11 @@ class App {
 
   private routes(): void {
     this.express.get('/', (req, res): void => {
-      res.send('API Rodando...');
+      res.send('API Spotify Playlist Generator iniciada...');
     });
 
-    this.express.post('/createPlaylist', PlaylistController.init.bind(PlaylistController));
+    this.express.post('/createPlaylistByArtist', PlaylistArtistController.init.bind(PlaylistArtistController));
+    this.express.post('/createPlaylistByCategory', PlaylistCategoryController.init.bind(PlaylistCategoryController));
   }
 }
 

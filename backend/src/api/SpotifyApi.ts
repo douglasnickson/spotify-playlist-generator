@@ -74,11 +74,20 @@ class SpotifyApi {
     .catch((error) => { console.log(error.response.data); return error; });
 
   /**
-   * Metodo utilizado para adicionar as musicas na plaliist
+   * Metodo utilizado para adicionar as musicas na playlist
    * @param artistName - Nome do artista que sera buscado
    * @author Douglas Nickson
    */
   public setPlaylistTracks = async (playlistId, data): Promise<AxiosResponse> => axios.post(`${API_URL}/playlists/${playlistId}/tracks`, data, { headers: this.headers })
+    .then((response): AxiosResponse => { console.log(response); return response; })
+    .catch((error) => { console.log(error.response.data); return error; });
+
+  /**
+   * Metodo utilizado para adicionar as musicas na playlist
+   * @param artistName - Nome do artista que sera buscado
+   * @author Douglas Nickson
+   */
+  public getCategoryPlaylists = async (categoryId: string): Promise<AxiosResponse> => axios.post(`${API_URL}/playlists/${categoryId}/playlists`)
     .then((response): AxiosResponse => { console.log(response); return response; })
     .catch((error) => { console.log(error.response.data); return error; });
 }

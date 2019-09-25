@@ -1,8 +1,10 @@
 import { Request, Response } from 'express';
 import { AxiosResponse } from 'axios';
-import SpotifyApi from '../api/SpotifyApi';
 
-class PlaylistController {
+import SpotifyApi from '../api/SpotifyApi';
+import Util from '../util/Util';
+
+class PlaylistArtistController {
   /**
    * Metodo principal utilizado para tratar a requisicao do usuario
    * @param req - Request recebida do usuario
@@ -18,7 +20,7 @@ class PlaylistController {
     const artistsList = await Promise.all(Object.values(artists)
       .map(async (artistsName): Promise<AxiosResponse> => spotifyApi.getArtists(artistsName)));
 
-    if (!this.isValid(artistsList)) {
+    if (!Util.isValid(artistsList)) {
       return res.send({ message: 'Ocorreu um erro ao buscar os artistas. Por favor, tente novamente!' });
     }
 
@@ -27,7 +29,7 @@ class PlaylistController {
     const albumsList = await Promise.all(artistsIdList
       .map(async (ids): Promise<AxiosResponse> => spotifyApi.getArtistsAlbums(ids)));
 
-    if (!this.isValid(albumsList)) {
+    if (!Util.isValid(albumsList)) {
       return res.send({ message: 'Ocorreu um erro ao buscar os albums dos artistas. Por favor, tente novamente!' });
     }
 
@@ -36,7 +38,7 @@ class PlaylistController {
     const trackList = await Promise.all(albumsIdList
       .map(async (ids): Promise<AxiosResponse> => spotifyApi.getAlbumTracks(ids)));
 
-    if (!this.isValid(trackList)) {
+    if (!Util.isValid(trackList)) {
       return res.send({ message: 'Ocorreu um erro ao buscar as músicas dos albums. Por favor, tente novamente!' });
     }
 
@@ -80,7 +82,7 @@ class PlaylistController {
   private buildPlaylistTracks = (trackList): string[] => {
     const randomTracks: string[] = [];
     for (let i = 0; i < 100; i += 1) {
-      const track: string = this.getRandomTrack(trackList);
+      const track: string = Util.getRandomTrack(trackList);
       const trackFormatted = `spotify:track:${track}`;
       randomTracks.push(trackFormatted);
     }
@@ -128,32 +130,6 @@ class PlaylistController {
 
     return listTracksIds;
   }
-
-  /**
-   * Metodo utilizado para verificar se o retorno do Spotify e valido
-   * @param values - Array contenndo os valores retornados do Spotify
-   * @author Douglas Nickson
-   */
-  private isValid = (values: AxiosResponse<any>[]): boolean => {
-    let statusValid = true;
-
-    values.forEach((result): void => {
-      if (statusValid) {
-        if (result.status !== 200) { statusValid = false; }
-      }
-    });
-    return statusValid;
-  }
-
-  /**
-   * Metodo utilizado para criar uma lista de musicas aleatorias dos artistas
-   * @param - Array contendo todas as musicas dos artistas
-   * @author - Douglas Nickson
-   */
-  private getRandomTrack = (trackArray): string => {
-    const randonNum = Math.floor(Math.random() * trackArray.length);
-    return trackArray[randonNum];
-  }
 }
 
-export default new PlaylistController();
+export default new PlaylistArtistController();
