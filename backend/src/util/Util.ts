@@ -18,6 +18,21 @@ class Util {
   }
 
   /**
+   * Metodo utilizado para gerar a Playlist no Spotify
+   * @param trackList - Lista contendo o ID das possiveis musicas a serem geradas
+   * @author Douglas Nickson
+   */
+  public buildPlaylistTracks = (trackList: string []): string[] => {
+    const randomTracks: string[] = [];
+    for (let i = 0; i < 100; i += 1) {
+      const track: string = this.getRandomTrack(trackList);
+      const trackFormatted = `spotify:track:${track}`;
+      randomTracks.push(trackFormatted);
+    }
+    return randomTracks;
+  }
+
+  /**
    * Metodo utilizado para criar uma lista de musicas aleatorias dos artistas
    * @param - Array contendo todas as musicas dos artistas
    * @author - Douglas Nickson

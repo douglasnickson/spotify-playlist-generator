@@ -44,7 +44,7 @@ class PlaylistArtistController {
 
     // Criando a lista de musicas da Playlist que sera criada
     const tracksIdList = this.getTracksIds(trackList);
-    const playlistTracks = this.buildPlaylistTracks(tracksIdList);
+    const playlistTracks = Util.buildPlaylistTracks(tracksIdList);
 
     if (playlistTracks.length < 1) {
       return res.send({ message: 'Ocorreu um erro ao criar a lista de músicas para a playlist. Por favor, tente novamente!' });
@@ -72,21 +72,6 @@ class PlaylistArtistController {
     }
 
     return res.send({ message: 'Playlist gerada com sucesso!' });
-  }
-
-  /**
-   * Metodo utilizado para gerar a Playlist no Spotify
-   * @param trackList - Lista contendo o ID das possiveis musicas a serem geradas
-   * @author Douglas Nickson
-   */
-  private buildPlaylistTracks = (trackList): string[] => {
-    const randomTracks: string[] = [];
-    for (let i = 0; i < 100; i += 1) {
-      const track: string = Util.getRandomTrack(trackList);
-      const trackFormatted = `spotify:track:${track}`;
-      randomTracks.push(trackFormatted);
-    }
-    return randomTracks;
   }
 
   /**
@@ -119,7 +104,7 @@ class PlaylistArtistController {
   }
 
   /**
-   * Metodo utilizado para pegar os IDS dos albums encontrados
+   * Metodo utilizado para pegar os IDS das tracks encontradas
    * @param trackList
    * @author Douglas Nickson
    */

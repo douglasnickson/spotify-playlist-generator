@@ -87,8 +87,24 @@ class SpotifyApi {
    * @param artistName - Nome do artista que sera buscado
    * @author Douglas Nickson
    */
-  public getCategoryPlaylists = async (categoryId: string): Promise<AxiosResponse> => axios.post(`${API_URL}/playlists/${categoryId}/playlists`)
+  public getCategoryPlaylists = async (categoryId: string): Promise<AxiosResponse> => axios.get(`${API_URL}/browse/categories/${categoryId}/playlists`, {
+    params: {
+      country: 'BR',
+      locale: 'pt-br',
+    },
+    headers: this.headers,
+  })
     .then((response): AxiosResponse => { console.log(response); return response; })
+    .catch((error) => { console.log(error.response.data); return error; });
+
+  /**
+   * Metodo utilizado para buscar as musicas de determinadas playlists
+   * @param playlistId - Id da playlist que sera buscado as musicas
+   * @author Douglas Nickson
+   */
+  public getPlaylistTracks = async (playlistId: string): Promise<AxiosResponse> => axios.get(`${API_URL}/playlists/${playlistId}/tracks`, {
+    headers: this.headers,
+  }).then((response): AxiosResponse => response)
     .catch((error) => { console.log(error.response.data); return error; });
 }
 
