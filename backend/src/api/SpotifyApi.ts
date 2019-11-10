@@ -106,6 +106,16 @@ class SpotifyApi {
     headers: this.headers,
   }).then((response): AxiosResponse => response)
     .catch((error) => { console.log(error.response.data); return error; });
+
+  /**
+   * Metodo utilizado para buscar as musicas top rated dos artistas
+   * @param artistId - Id do artista que sera buscado as musicas top rated
+   * @author Douglas Nickson
+   */
+  public getArtistTopRatedTracks = async (artistId: string): Promise<AxiosResponse> => axios.get(`${API_URL}/artists/${artistId}/top-tracks`, {
+    headers: this.headers,
+  }).then((response): AxiosResponse => response)
+    .catch((error) => { console.log(error.response.data); return error; });
 }
 
 export default SpotifyApi;
