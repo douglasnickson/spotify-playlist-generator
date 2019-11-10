@@ -113,6 +113,9 @@ class SpotifyApi {
    * @author Douglas Nickson
    */
   public getArtistTopRatedTracks = async (artistId: string): Promise<AxiosResponse> => axios.get(`${API_URL}/artists/${artistId}/top-tracks`, {
+    params: {
+      country: 'BR',
+    },
     headers: this.headers,
   }).then((response): AxiosResponse => response)
     .catch((error) => { console.log(error.response.data); return error; });
