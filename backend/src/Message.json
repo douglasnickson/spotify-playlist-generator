@@ -1,0 +1,14 @@
+{
+  "success": [
+    "Playlist gerada com sucesso!"
+  ],
+  "error": [
+    "Ocorreu um erro ao criar a lista de músicas para a playlist. Por favor, tente novamente!",
+    "Ocorreu um erro ao buscar as músicas top rated dos artistas. Por favor, tente novamente!",
+    "Ocorreu um erro ao buscar os albums dos artistas. Por favor, tente novamente!",
+    "Ocorreu um erro ao buscar as músicas dos albums. Por favor, tente novamente!",
+    "Ocorreu um erro ao gerar a lista de músicas para a playlist. Por favor, tente novamente!",
+    "Ocorreu um erro ao criar a Playlist no Spotify. Por favor, tente novamente!",
+    "Ocorreu um erro ao adicionar as musicas na Playlist do Spotify. Por favor, tente novamente!"
+  ]
+}

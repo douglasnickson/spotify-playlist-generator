@@ -19,16 +19,30 @@ class Util {
 
   /**
    * Metodo utilizado para gerar a Playlist no Spotify
-   * @param trackList - Lista contendo o ID das possiveis musicas a serem geradas
+   * @param artistsTracksGroup - Lista contendo o ID das possiveis musicas a serem geradas
    * @author Douglas Nickson
    */
-  public buildPlaylistTracks = (trackList: string []): string[] => {
+  public buildPlaylistTracks = (artistsTracksGroup: string []): string[] => {
     const randomTracks: string[] = [];
-    for (let i = 0; i < 100; i += 1) {
-      const track: string = this.getRandomTrack(trackList);
-      const trackFormatted = `spotify:track:${track}`;
+    let count = 0;
+
+    if (artistsTracksGroup.length >= 100) {
+      while (count < 100) {
+        const track: string = this.getRandomTrack(artistsTracksGroup);
+        if (!randomTracks.includes(track)) {
+          const trackFormatted = `spotify:track:${track}`;
+          randomTracks.push(trackFormatted);
+          count += 1;
+        }
+      }
+      return randomTracks;
+    }
+
+    for (let i = 0; i < artistsTracksGroup.length; i += 1) {
+      const trackFormatted = `spotify:track:${artistsTracksGroup[i]}`;
       randomTracks.push(trackFormatted);
     }
+
     return randomTracks;
   }
 
